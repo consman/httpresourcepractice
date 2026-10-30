@@ -1,0 +1,19 @@
+<input placeholder="New Zip Code"  type="text" [(ngModel)]="newZip">
+<button (click)="handleNewZip()">Add New Zip</button>
+<br>
+<!--
+    @let jeoc = jeoCodeSig();
+    @if(jeoc && jeoc.zip && jeoc.zip.length == 5){
+    }
+-->
+@let currZip = zipSig();    
+@if( currZip) {    
+    @let jeoCodesSigs = jeoCodesSigsSig();
+    @for ( jeocSig of jeoCodesSigs; track jeocSig()?.zip){
+        @let jeoc = jeocSig();
+        @if(jeoc && jeoc.zip.length == 5 ){
+        <app-box [jeoCodeSig] = "jeoc">
+        </app-box>
+        }
+    }
+}
