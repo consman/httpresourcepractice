@@ -8,12 +8,13 @@
 -->
 @let currZip = zipSig();    
 @if( currZip) {    
-    @let jeoCodesSigs = jeoCodesSigsSig();
-    @for ( jeocSig of jeoCodesSigs; track jeocSig()?.zip){
+    @let jeoCodesSigs = getTotalJeoCodesSigsSigComp();
+    @let jeoCodesSigsB = jeoCodesSigs();
+    @for ( jeocSig of jeoCodesSigsB; track jeocSig()?.zip){
         @let jeoc = jeocSig();
         @if(jeoc && jeoc.zip.length == 5 ){
-        <app-box [jeoCodeSig] = "jeoc">
-        </app-box>
+            <app-box [jeoCodeSig] = "jeoc">
+            </app-box>
         }
     }
 }

@@ -9,17 +9,17 @@ export class Prodweather {
     wAppId = W_APP_ID;
     dummySig:WritableSignal<String | undefined>= signal(new Date().getTime()+'');
 
-    getJeoCodeByUnKnownZipSig(zip: string): WritableSignal<Jeocode | undefined> {
+    getJeoCodeByUnKnownZipSig(zip: string): void { //WritableSignal<Jeocode | undefined> {
         console.log('Prodweather - getJeoCodeByUnKnownZipSig and the incoming zip = ' + zip);
         //this.dummySig.set(new Date().getTime()+'');
-        this.zipSig.set(zip);
-        let result = this.jeoCodeProdResource.value;
-        return result;
+        this.zzipSig.set(zip);
+        //let result = this.jeoCodeProdResource.value;
+        //return result;
     }  
 
-    private zipSig:WritableSignal<String | undefined>= signal(undefined);
+    private zzipSig:WritableSignal<String | undefined>= signal(undefined);
     jeoCodeProdResource = httpResource<Jeocode | undefined> (() => {
-        const zip = this.zipSig();
+        const zip = this.zzipSig();
         //const dummy = this.dummySig();
         //if (!zip || !dummy ){ console.log('Prodweather - jeoCodeProdResource -  zip or dummy is not defined - returning undefined..'); return undefined; }
         if (!zip ){ console.log('Prodweather - jeoCodeProdResource -  zip is not defined - returning undefined..'); return undefined; }

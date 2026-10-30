@@ -22,16 +22,25 @@ export class Boxes {
     
 
     constructor(){
+      this.jeoCodesSigsSig = this.getJeoCodesSigsSig();
     }
 
     getTotalJeoCodesSigsSigComp = computed(():WritableSignal<WritableSignal<Jeocode | undefined> [] | undefined> => {
       const currZip = this.zipSig();
       //let result = signal(new Array<WritableSignal<Jeocode| undefined>>);
-      const getJeoCodes = this.getJeoCodesSigsSig();
-      const newJeoSig = this.weatherService.getJeoCodeByUnKnownZipSig((currZip+''));
-      return currZip && newJeoSig && newJeoSig()?.zip.length == 5  
-         ? this.addSignalToSignalofArrayofSignals( getJeoCodes, newJeoSig)  
-          : getJeoCodes ;
+      const getJeoCodes = this.jeoCodesSigsSig ; //this.getJeoCodesSigsSig();
+      console.log('inside getTotalJeoCodesSigsSigComp... A');
+      if (!currZip) {
+        console.log('inside getTotalJeoCodesSigsSigComp... B');
+        return getJeoCodes;
+      }
+      
+      const newJeoSig = this.weatherService.jeoCodeProdResource.value; 
+      console.log('inside getTotalJeoCodesSigsSigComp... C and newJeoSig()?.zip = ' +newJeoSig()?.zip);
+
+    return newJeoSig && newJeoSig()?.zip?.length === 5 
+      ? this.addSignalToSignalofArrayofSignals(getJeoCodes, newJeoSig) 
+      : getJeoCodes;
     });// end comp
 
     addSignalToSignalofArrayofSignals(inArrSig :    WritableSignal<WritableSignal<Jeocode | undefined> [] | undefined>, 
@@ -48,6 +57,7 @@ export class Boxes {
             ]);
           });
         }
+        console.log('addSignalToSignalofArrayofSignals finished and the result().length =  '+ result().length);
       return result;
     }
 
@@ -64,7 +74,8 @@ export class Boxes {
 
     handleNewZip(): void{
       this.zipSig.set(this.newZip);      
-      this.jeoCodesSigsSig = this.getTotalJeoCodesSigsSigComp(); 
+      this.weatherService.getJeoCodeByUnKnownZipSig(this.newZip);
+      //this.jeoCodesSigsSig = this.getTotalJeoCodesSigsSigComp(); 
       this.newZip = '';
     }
 
