@@ -1,4 +1,4 @@
-import { inject, Injectable, Injector, signal, WritableSignal } from '@angular/core';
+import { effect, inject, Injectable, Injector, signal, WritableSignal } from '@angular/core';
 import { Jeocode } from './funTypes';
 import { httpResource } from '@angular/common/http';
 
@@ -6,6 +6,13 @@ declare const W_APP_ID: string;
 
 @Injectable({ providedIn: 'root' })
 export class Prodweather {
+
+    constructor(){
+        effect(() => {
+            const jeoCodeProdResourceValue = this.jeoCodeProdResource.value();
+            console.log(' Resourse changed and jeoCodeProdResourceValue?.zip = ' + jeoCodeProdResourceValue?.zip);
+        });
+    }
     wAppId = W_APP_ID;
     dummySig:WritableSignal<String | undefined>= signal(new Date().getTime()+'');
 
@@ -24,22 +31,15 @@ export class Prodweather {
         //if (!zip || !dummy ){ console.log('Prodweather - jeoCodeProdResource -  zip or dummy is not defined - returning undefined..'); return undefined; }
         if (!zip ){ console.log('Prodweather - jeoCodeProdResource -  zip is not defined - returning undefined..'); return undefined; }
         else{
+            console.log('jeoCodeProdResource looking good ');
             return {
+                
                 url:'https://api.openweathermap.org/geo/1.0/zip?zip='+zip+',us&units=imperial&appid=' + this.wAppId,
                 method:'GET'
-            }
+            };
+            
         }
     });
 
-/*
-    getJeoCodeByUnKnownZipSig(zipSig: WritableSignal<String | undefined>): WritableSignal<Jeocode | undefined> {
-      console.log('Prodweather going for getJeoCodeByUnKnownZipSig with zip ' + zipSig());  
-      //let result = httpResource<Jeocode>( ()=>'https://api.openweathermap.org/geo/1.0/zip?zip=' + '93727' + ',us&units=imperial&appid='+this.wAppId);
-      const result = httpResource<Jeocode>(
-      () => 'https://api.openweathermap.org/geo/1.0/zip?zip='+zipSig()+',us&units=imperial&appid=' + this.wAppId,
-      { injector: this.injector }
-      );
-    return result.value;
-  }
-  */  
+ 
 }
