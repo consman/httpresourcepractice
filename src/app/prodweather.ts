@@ -1,4 +1,4 @@
-import { effect, inject, Injectable, Injector, signal, WritableSignal } from '@angular/core';
+import { effect, Injectable, signal, WritableSignal } from '@angular/core';
 import { Jeocode } from './funTypes';
 import { httpResource } from '@angular/common/http';
 import { KNOWNGEOCODES } from './refData';
@@ -81,7 +81,5 @@ export class Prodweather {
             };
             
         }
-    });
-
- 
+    }); 
 }

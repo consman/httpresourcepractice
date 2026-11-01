@@ -26,11 +26,18 @@ export class Boxes {
       this.jeoCodesSigsSig = this.getJeoCodesSigsSig();
 
       effect(() =>{ //001 
-        const geoSig = this.jeoCodeSigFromService;
-        const geo = geoSig();
-        if(geo && geo.zip.length == 5){
-          console.log('eff 001 and the geo.name = '+geo.name);
-        }
+        const zipp = this.zipSig();
+        if(zipp && zipp.length === 5){
+          const currentGeoSig = this.weatherService.getJeoCode(zipp+'');
+          const geo = currentGeoSig();
+          //const geo = geoSig();
+          if(geo && geo.zip.length == 5){
+            console.log('eff 001 and the geo.name = '+geo.name);
+            this.lastJeoCodeSig.set(geo);
+            console.log('eff 001 saved this.weatherService.getJeoCode(zipp+ to this.lastJeoCodeSig - zip = ' + geo.zip );
+              this.newZip = '';
+          }
+      }
       });
 /*
       effect(() => {//001 
