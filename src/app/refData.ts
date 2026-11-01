@@ -1,8 +1,8 @@
 import { Lokation, Daum, Jeocode, OneCallResponse, SearchResponse } from './funTypes';
 export const KNOWNGEOCODES: Jeocode [] =[
     {"zip":"95630","name":"Folsom","lat":38.6709,"lon":-121.1529,"country":"US"}
-    ,{"zip":"55121","name":"Eagan","lat":44.8471,"lon":-93.1543,"country":"US"}
-    ,{"zip":"95742","name":"Sacramento County","lat":38.5981,"lon":-121.2153,"country":"US"}//Rancho
+    //,{"zip":"55121","name":"Eagan","lat":44.8471,"lon":-93.1543,"country":"US"}
+    //,{"zip":"95742","name":"Sacramento County","lat":38.5981,"lon":-121.2153,"country":"US"}//Rancho
     ,{"zip":"93424","name":"San Luis Obispo County","lat":35.18,"lon":-120.7318,"country":"US"}
     ,{"zip":"83616","name":"Ada County","lat":43.7069,"lon":-116.362,"country":"US"}
     ,{"zip":"59829","name":"Ravalli County","lat":46.028,"lon":-114.1938,"country":"US"}

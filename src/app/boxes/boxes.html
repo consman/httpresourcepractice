@@ -17,11 +17,13 @@
         }
     }
 
-    @let jeocSig = getJeoCodeFromService();
+    @let jeocSig = jeoCodeSigFromService;
     @let jeoc = jeocSig();
     @if(jeoc && jeoc.zip.length == 5 ){
         <app-box [jeoCodeSig] = "jeoc">
         </app-box>
     }
 }
+
+<div>this.jeoCodeSigFromService()?.name = {{this.jeoCodeSigFromService()?.name}}</div>
  
